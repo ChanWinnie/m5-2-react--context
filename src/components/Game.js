@@ -1,11 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 import cookieSrc from "../cookie.svg";
 import Item from "./Item";
+import items from "../Data";
+import { GameContext } from "./GameContext";
 
-const Game = ({ items, numCookies, setNumCookies, purchasedItems, setPurchasedItems, numOfGeneratedCookies }) => {
+const Game = () => {
+
+  const { numCookies, setNumCookies, purchasedItems, setPurchasedItems, numOfGeneratedCookies} = useContext(GameContext);
 
   const incrementCookies = () => {
     setNumCookies((c) => c + 1);
