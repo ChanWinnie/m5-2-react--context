@@ -15,6 +15,23 @@ function App() {
     setNumCookies(numCookies + numOfGeneratedCookies);
   }, 1000);
 
+  window.onunload = () => {
+    localStorage.setItem("unloadTime", new Date().getTime());
+  };
+
+  window.onload = () => {
+    const unloadTime = localStorage.getItem("unloadTime");
+    //console.log(unloadTime)
+    const timeDifference = new Date().getTime() - unloadTime;
+    //console.log(timeDifference)
+    const timePassed = Math.floor(timeDifference / 1000);
+    //console.log(timePassed)
+    if(numOfGeneratedCookies > 0) {
+      console.log("numofgeneratedcookies > 0")
+      setNumCookies(numCookies + (numOfGeneratedCookies * timePassed));
+    }
+  }
+
   return (
     <>
       <GlobalStyles />
