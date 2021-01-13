@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import GlobalStyles from "./GlobalStyles";
@@ -15,11 +15,14 @@ function App() {
     setNumCookies(numCookies + numOfGeneratedCookies);
   }, 1000);
 
-  window.onunload = () => {
-    localStorage.setItem("unloadTime", new Date().getTime());
-  };
+  useEffect(() => {
+    gameOnLoad();
+    window.onunload = () => {
+      localStorage.setItem("unloadTime", new Date().getTime());
+    };
+  }, []);
 
-  window.onload = () => {
+  const gameOnLoad = () => {
     const unloadTime = localStorage.getItem("unloadTime");
     //console.log(unloadTime)
     const timeDifference = new Date().getTime() - unloadTime;
@@ -27,7 +30,7 @@ function App() {
     const timePassed = Math.floor(timeDifference / 1000);
     //console.log(timePassed)
     if(numOfGeneratedCookies > 0) {
-      console.log("numofgeneratedcookies > 0")
+      //console.log("numofgeneratedcookies > 0")
       setNumCookies(numCookies + (numOfGeneratedCookies * timePassed));
     }
   }
